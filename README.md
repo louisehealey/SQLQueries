@@ -1,8 +1,11 @@
 # 🗄️Microsoft SQL Queries
 
-This repository provides a comprehensive guide on connecting Power BI to a SQL Server database using custom SQL queries. It includes example queries, setup instructions, and best practices for efficient data loading and transformation.
+This repository provides comprehensive queries that connect Power BI to a SQL Server database.
 
-Once the server and database are specified, the provided SQL commands facilitate seamless data retrieval and integration.
+## Benefits of Loading Data into Power BI via SQL  
+- **Direct Querying** – Minimizes unnecessary data transfer, optimizing performance and data security.  
+- **Enhanced Stability** – SQL efficiently handles large datasets, ensuring smooth operations.  
+- **Reduced Complexity in Power BI Models** – Performing transformations in SQL decreases Power BI’s workload, resulting in simpler, faster-performing reports.  
 
 ## ⚙️ Inventory Transactions
 This SQL command retrieves the transactional data from the `PO_TRANSACTION` table for the past 91 days, counting back from today while filtering on records where `ACTION_DATE` is set to "I".
@@ -36,3 +39,33 @@ WHERE STOCK_STATUS."PART_ID" LIKE '900%'
 GROUP BY STOCK_STATUS."PART_ID";
 
  ``` 
+## ⚙️ Inventory and Jobs Overview by Part ID
+This SQL query retrieves inventory and job-related data for all parts  with a European Union (EU) stores code. It provides insights into stock levels, part details, and outstanding balances.
+
+By joining `STOCK_STATUS` and `JOB_MANAGER` on the `PART_MANAGER` table, this query optimizes data retrieval by reducing the number of tables and minimizing the amount of data loaded into the model.
+ ``` 
+SELECT 
+    STOCK_STATUS."PART_ID", 
+    PART_MANAGER."COMM_CODE", 
+    PART_MANAGER."PART_DESC",
+    STOCK_STATUS."ON_HAND_QTY",
+    COALESCE(SUM(JOB_MANAGER."BALANCE_DUE"), 0) AS "BAL_DUE"
+FROM 
+    STOCK_STATUS
+JOIN 
+    PART_MANAGER
+    ON STOCK_STATUS."PART_ID" = PART_MANAGER."PART_ID"
+JOIN 
+    JOB_MANAGER
+    ON STOCK_STATUS."PART_ID" = JOB_MANAGER."PART_ID" 
+    AND JOB_MANAGER."STORES_CODE" = 'EU'  
+WHERE 
+    STOCK_STATUS."STORES_CODE" = 'EU'
+GROUP BY 
+    STOCK_STATUS."PART_ID", 
+    PART_MANAGER."COMM_CODE", 
+    PART_MANAGER."PART_DESC",
+    STOCK_STATUS."ON_HAND_QTY"
+
+ ``` 
+
