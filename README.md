@@ -68,4 +68,19 @@ GROUP BY
     STOCK_STATUS."ON_HAND_QTY"
 
  ``` 
+## ⚙️ Inventory Levels by Commodity  
+
+This query retrieves the On-Hand Quantities for Parts with specific commodity code.  
+
+```
+SELECT  
+  STOCK_STATUS."PART_ID",  
+  STOCK_STATUS."ON_HAND_QTY",  
+  PART_MANAGER."COMM_CODE"  
+FROM  
+  STOCK_STATUS  
+JOIN  
+  PART_MANAGER ON PART_MANAGER."PART_ID" = STOCK_STATUS."PART_ID"  
+WHERE  
+  PART_MANAGER."COMM_CODE" IN ('PCB', 'CABLE', 'OPTIC');
 
