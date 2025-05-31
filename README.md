@@ -8,7 +8,7 @@ This repository provides comprehensive queries that connect Power BI to a SQL Se
 - **Reduced Complexity in Power BI Models** – Performing transformations in SQL decreases Power BI’s workload, resulting in simpler, faster-performing reports.  
 
 ## ⚙️ Inventory Transactions
-This SQL command retrieves the transactional data from the `PO_TRANSACTION` table for the past 91 days, counting back from today while filtering on records where `ACTION_DATE` is set to "I".
+This SQL command retrieves the transactional data from the `PO_TRANSACTION` table for the past 91 days, counting back from today while filtering on records where `ACTION_TYPE` is set to "I".
  ``` 
 SELECT
    PO_TRANSACTION.PART_ID,
