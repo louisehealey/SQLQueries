@@ -2,7 +2,7 @@
 
 This repository provides comprehensive queries that connect Power BI to a SQL Server database.
 
-## Benefits of Loading Data into Power BI via SQL  
+## 🏆 Benefits of Loading Data into Power BI via SQL  
 - **Direct Querying** – Minimizes unnecessary data transfer, optimizing performance and data security.  
 - **Enhanced Stability** – SQL efficiently handles large datasets, ensuring smooth operations.  
 - **Reduced Complexity in Power BI Models** – Performing transformations in SQL decreases Power BI’s workload, resulting in simpler, faster-performing reports.  
